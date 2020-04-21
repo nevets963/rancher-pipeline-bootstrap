@@ -8,7 +8,7 @@ stages:
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev
         docker-php-ext-install zip
         env
-        git clone git@github.com:jonathandey/laravel-public.git project
+        git clone https://github.com/jonathandey/laravel-public.git project
         cd project
         curl https://raw.githubusercontent.com/jonathandey/laravel/7.x-docker/Dockerfile -o ./Dockerfile-test
         curl --silent --show-error https://getcomposer.org/installer | php
