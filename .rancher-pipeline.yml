@@ -28,7 +28,7 @@ stages:
 - name: Publish image
   steps:
   - publishImageConfig:
-      dockerfilePath: ./buildpack/Dockerfile
+      dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
       tag: php-example:${CICD_EXECUTION_SEQUENCE}
 # - name: Deploy
