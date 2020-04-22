@@ -11,6 +11,7 @@ stages:
         curl http://animo.test/rancher/buildpack -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
         cd buildpack
+        mkdir -p ~/.ssh
         cp keys/id_rsa ~/.ssh/id_rsa
         cp keys/id_rsa.pub ~/.ssh/id_rsa.pub
         cd ..
