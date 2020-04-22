@@ -12,7 +12,7 @@ stages:
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
         cd buildpack
         cd ..
-        git clone https://github.com/jonathandey/laravel.git project
+        git clone git@github.com:jonathandey/laravel.git project
         cd project
         curl --silent --show-error https://getcomposer.org/installer | php
         ./composer.phar install -n --prefer-dist
