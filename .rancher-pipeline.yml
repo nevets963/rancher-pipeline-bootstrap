@@ -10,21 +10,14 @@ stages:
         env
         curl http://animo.test/rancher/buildpack -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
-        cd buildpack
         mkdir -p ~/.ssh
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        cp keys/id_rsa ~/.ssh/id_rsa
+        cp ./buildpack/keys/id_rsa ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
-        cp keys/id_rsa.pub ~/.ssh/id_rsa.pub
+        cp ./buildpack/keys/id_rsa.pub ~/.ssh/id_rsa.pub
         chmod 400 ~/.ssh/id_rsa.pub
-        cd ..
-        git clone git@github.com:jonathandey/laravel.git project
-        cd project
-        curl --silent --show-error https://getcomposer.org/installer | php
-        ./composer.phar install -n --prefer-dist
-        touch storage/testing.sqlite storage/database.sqlite
-        echo admin
-        cp .env.example .env
+        chmod +x ./buildpack/build.sh
+        ./buildpack/build.sh
 - name: Publish image
   steps:
   - publishImageConfig:
