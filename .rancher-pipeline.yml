@@ -1,5 +1,5 @@
 stages:
-- name: Codeception test
+- name: Build
   steps:
   - runScriptConfig:
       image: php:7.4
@@ -8,9 +8,12 @@ stages:
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev
         docker-php-ext-install zip
         env
-        git clone https://github.com/jonathandey/laravel-public.git project
+        curl http://animo.test/rancher/buildpack -L -o buildpack.zip
+        mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
+        cd buildpack
+        cd ..
+        git clone https://github.com/jonathandey/laravel.git project
         cd project
-        curl https://raw.githubusercontent.com/jonathandey/laravel/7.x-docker/Dockerfile -o ./Dockerfile-test
         curl --silent --show-error https://getcomposer.org/installer | php
         ./composer.phar install -n --prefer-dist
         touch storage/testing.sqlite storage/database.sqlite
@@ -19,7 +22,7 @@ stages:
 - name: Publish image
   steps:
   - publishImageConfig:
-      dockerfilePath: ./project/Dockerfile
+      dockerfilePath: ./buildpack/Dockerfile
       buildContext: .
       tag: php-example:${CICD_EXECUTION_SEQUENCE}
 # - name: Deploy
