@@ -11,13 +11,12 @@ stages:
         curl http://animo.test/rancher/buildpack -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
         mkdir -p ~/.ssh
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
         cp ./buildpack/keys/id_rsa ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
         cp ./buildpack/keys/id_rsa.pub ~/.ssh/id_rsa.pub
         chmod 400 ~/.ssh/id_rsa.pub
-        chmod +x ./buildpack/build.sh
-        ./buildpack/build.sh
+        chmod +x ./buildpack/scripts/system_build.sh
+        ./buildpack/scripts/system_build.sh
 - name: Publish image
   steps:
   - publishImageConfig:
